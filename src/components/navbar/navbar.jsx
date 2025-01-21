@@ -36,7 +36,7 @@ export default function Navbar() {
             </NavLink>
             {isOpen && (
               <div
-                className="absolute right-0 mt-2 bg-white text-black p-4 rounded-lg shadow-lg"
+                className="absolute right-0 mt-2 bg-white text-black p-4 rounded-lg shadow-lg border-1"
                 onMouseLeave={() => setIsOpen(!isOpen)}
               >
                 <ul className="flex flex-col items-center justify-center">
