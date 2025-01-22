@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "../components/navbar/navbar";
+import { Outlet } from "react-router-dom";
 
 export default function Groups() {
   return (
@@ -9,7 +10,7 @@ export default function Groups() {
     >
       <Navbar />
       <div className="w-full h-full flex flex-col justify-center items-center mt-20 border-1 rounded-3xl">
-        <h1>Groups page</h1>
+        <Outlet />
       </div>
     </div>
   );

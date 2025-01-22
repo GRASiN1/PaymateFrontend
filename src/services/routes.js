@@ -5,6 +5,8 @@ import About from "../pages/about";
 import Contact from "../pages/contact";
 import Profile from "../pages/profile";
 import Groups from "../pages/groups";
+import GroupDetail from "../components/groupCards/groupDetail";
+import GroupList from "../components/groupCards/groupList";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +28,16 @@ const router = createBrowserRouter([
   {
     path: "/groups",
     element: <Groups />,
+    children: [
+      {
+        index: true,
+        element: <GroupList />,
+      },
+      {
+        path: "/groups/:id",
+        element: <GroupDetail />,
+      },
+    ],
   },
 ]);
 
