@@ -5,7 +5,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <nav className="w-full h-16 flex flex-row justify-around items-center fixed top-0 z-10 font-pacifico">
-      <div className="w-4/5 h-14 flex flex-row justify-around items-center fixed top-0 z-10 pt-8 pb-8 border-1 m-1 rounded-full">
+      <div className="w-4/5 h-14 flex flex-row justify-around items-center fixed top-0 z-10 pt-8 pb-8 border-1 m-1 rounded-full bg-white">
         <div id="brandLogo" className="w-full flex justify-center items-center">
           <NavLink to="/">
             <img src="/images/logoNoBg2.png" alt="brand" width={150} />

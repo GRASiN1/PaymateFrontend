@@ -7,6 +7,7 @@ import Profile from "../pages/profile";
 import Groups from "../pages/groups";
 import GroupDetail from "../components/groupCards/groupDetail";
 import GroupList from "../components/groupCards/groupList";
+import Test from "../pages/test";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
         element: <GroupDetail />,
       },
     ],
+  },
+  {
+    path: "/test",
+    element: <Test />,
   },
 ]);
 

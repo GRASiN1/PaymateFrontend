@@ -19,6 +19,9 @@ module.exports = {
         caputMortuum: "#481C1C",
         blackBean: "#481C1C",
       },
+      transitionDuration: {
+        1500: "1500ms",
+      },
     },
   },
   plugins: [],
