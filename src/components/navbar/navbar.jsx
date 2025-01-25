@@ -7,7 +7,7 @@ export default function Navbar({ refs }) {
   function scrollToSec(eleRef) {
     const navbarHeight = document.querySelector("nav").offsetHeight;
     window.scrollTo({
-      top: eleRef.current?.offsetTop - (64 + 37),
+      top: eleRef.current?.offsetTop - (navbarHeight + 30),
       behavior: "smooth",
     });
   }
