@@ -1,8 +1,16 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
-export default function Navbar() {
+export default function Navbar({ refs }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [home, about, contact] = refs;
+  function scrollToSec(eleRef) {
+    const navbarHeight = document.querySelector("nav").offsetHeight;
+    window.scrollTo({
+      top: eleRef.current?.offsetTop - (64 + 37),
+      behavior: "smooth",
+    });
+  }
   return (
     <nav className="w-full h-16 flex flex-row justify-around items-center fixed top-0 z-10 font-pacifico">
       <div className="w-4/5 h-14 flex flex-row justify-around items-center fixed top-0 z-10 pt-8 pb-8 border-1 m-1 rounded-full bg-white">
@@ -13,13 +21,25 @@ export default function Navbar() {
         </div>
         <div id="menu" className="w-full flex justify-center items-center">
           <ul className="w-full flex flex-row justify-around items-center font-semibold text-xl">
-            <NavLink to="/">
+            <NavLink
+              onClick={() => {
+                scrollToSec(home);
+              }}
+            >
               <li className="cursor-pointer">Home</li>
             </NavLink>
-            <NavLink to="/about">
+            <NavLink
+              onClick={() => {
+                scrollToSec(about);
+              }}
+            >
               <li className="cursor-pointer">About</li>
             </NavLink>
-            <NavLink to="/contact">
+            <NavLink
+              onClick={() => {
+                scrollToSec(contact);
+              }}
+            >
               <li className="cursor-pointer">Contact</li>
             </NavLink>
           </ul>
