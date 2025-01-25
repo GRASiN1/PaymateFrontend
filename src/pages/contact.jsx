@@ -50,7 +50,7 @@ export default function Contact({ ref }) {
       >
         <div
           className={`transform transition-all duration-1000 ease-in-out ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
           <h1 className="font-bold font-san lg:text-9xl md:text-8xl text-7xl">
