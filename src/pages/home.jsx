@@ -9,7 +9,7 @@ export default function Home({ ref }) {
     // >
     //   <Navbar />
     <div
-      className="w-full min-h-192 flex flex-col justify-center items-center mt-20 border-1 rounded-lg"
+      className="w-full min-h-192 flex flex-col justify-center items-center mt-16 border-1 rounded-lg"
       ref={ref}
     >
       <h1>home page</h1>
