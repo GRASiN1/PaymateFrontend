@@ -3,7 +3,7 @@ import GroupCards from "./groupCards";
 
 export default function GroupList() {
   return (
-    <div className="w-full grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 p-4 ">
+    <div className="w-full grid place-items-center grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 p-4 ">
       <div
         id="defaultCard"
         className="bg-gray-100 rounded-xl p-4 w-80 h-52 shadow-md border flex justify-center items-center cursor-pointer"
