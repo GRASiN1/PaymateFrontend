@@ -53,17 +53,17 @@ export default function Contact({ ref }) {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
-          <h1 className="font-bold font-san lg:text-9xl md:text-8xl text-7xl">
+          <h1 className="font-bold font-san lg:text-9xl md:text-8xl text-7xl text-gray-800">
             CONTACT
           </h1>
-          <h1 className="font-bold font-san lg:text-9xl md:text-8xl text-7xl">
+          <h1 className="font-bold font-san lg:text-9xl md:text-8xl text-7xl text-gray-800">
             US
           </h1>
-          <p className="font-semibold ml-2">
+          <p className="font-semibold ml-2 text-gray-600">
             <span className="text-red-500"> Mail us at : </span>
             gauravrajsingh047@gmail.com
           </p>
-          <p className="font-semibold ml-2">
+          <p className="font-semibold ml-2 text-gray-600">
             <span className="text-red-500"> Call us at : </span>
             +91-9198888436
           </p>

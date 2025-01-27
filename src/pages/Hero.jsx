@@ -15,7 +15,7 @@ export default function Hero() {
     >
       <Navbar refs={[home, about, contact]} />
       <Home ref={home} />
-      <About ref={about} />
+      <About parentRef={about} />
       <Contact ref={contact} />
     </div>
   );
