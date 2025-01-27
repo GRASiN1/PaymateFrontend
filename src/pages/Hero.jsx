@@ -18,17 +18,17 @@ export default function Hero() {
 
       if (section === "Home" && home.current) {
         window.scrollTo({
-          top: home.current?.offsetTop - (navbarHeight + 30),
+          top: home.current?.offsetTop - (navbarHeight + 25),
           behavior: "smooth",
         });
       } else if (section === "About" && about.current) {
         window.scrollTo({
-          top: about?.current.offsetTop - (navbarHeight + 30),
+          top: about?.current.offsetTop - (navbarHeight + 25),
           behavior: "smooth",
         });
       } else if (section === "Contact" && contact.current) {
         window.scrollTo({
-          top: contact?.current.offsetTop - (navbarHeight + 30),
+          top: contact?.current.offsetTop - (navbarHeight + 25),
           behavior: "smooth",
         });
       }
