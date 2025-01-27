@@ -13,16 +13,6 @@ export default function Home({ ref }) {
       ref={ref}
     >
       <h1>home page</h1>
-      <h1>home page</h1>
-      <h1>home page</h1>
-      <h1>home page</h1>
-      <h1>home page</h1>
-      <h1>home page</h1>
-      <h1>home page</h1>
-      <h1>home page</h1>
-      <h1>home page</h1>
-      <h1>home page</h1>
-      <h1>home page</h1>
     </div>
     // </div>
   );
