@@ -7,7 +7,7 @@ export default function GroupCards(props) {
     navigate(`/groups/${props.id}`, { state: props });
   }
   return (
-    <div className="border rounded-lg p-5 bg-gray-100 shadow-md w-64 text-wrap h-52">
+    <div className="border rounded-lg p-5 bg-gray-100 shadow-md w-80 text-wrap h-52 flex flex-col items-start justify-between">
       <h3 className="text-xl font-bold mb-2">{props.groupTitle}</h3>
       <p>{props.groupDescription}</p>
       <p>
