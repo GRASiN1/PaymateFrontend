@@ -17,7 +17,7 @@ export default function NavbarWR({ refs }) {
           </NavLink>
         </div>
         <div id="menu" className="w-full flex justify-center items-center">
-          <ul className="w-full flex flex-row justify-around items-center font-semibold text-xl">
+          <ul className="w-full flex flex-row justify-around items-center font-semibold text-xl gap-3">
             <li
               className="cursor-pointer"
               onClick={() => handleNavigation("Home")}
@@ -40,14 +40,12 @@ export default function NavbarWR({ refs }) {
         </div>
         <div id="profile" className="w-full flex justify-center items-center">
           <div className="relative group">
-            <NavLink to="/">
-              <img
-                src="/images/avatar.png"
-                alt="Profile"
-                className="w-12 h-12 rounded-full cursor-pointer"
-                onMouseEnter={() => setIsOpen(!isOpen)}
-              />
-            </NavLink>
+            <img
+              src="/images/avatar.png"
+              alt="Profile"
+              className="w-12 h-12 rounded-full cursor-pointer"
+              onMouseEnter={() => setIsOpen(!isOpen)}
+            />
             {isOpen && (
               <div
                 className="absolute right-0 mt-2 bg-white text-black p-4 rounded-lg shadow-lg border-1"
@@ -65,13 +63,19 @@ export default function NavbarWR({ refs }) {
                       Groups
                     </li>
                   </NavLink>
+                  <button
+                    className="w-full mt-4 text-white bg-red-600 px-3 py-1 rounded hover:bg-blue-500 hover:text-black"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Logout
+                  </button>
+                  <button
+                    className="w-full mt-4 text-white bg-red-600 px-3 py-1 rounded hover:bg-blue-500 hover:text-black"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Close
+                  </button>
                 </ul>
-                <button
-                  className="mt-4 text-white bg-red-600 px-3 py-1 rounded hover:bg-blue-500 hover:text-black"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Logout
-                </button>
               </div>
             )}
           </div>

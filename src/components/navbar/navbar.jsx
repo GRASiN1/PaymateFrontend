@@ -7,7 +7,7 @@ export default function Navbar({ refs }) {
   function scrollToSec(eleRef) {
     const navbarHeight = document.querySelector("nav").offsetHeight;
     window.scrollTo({
-      top: eleRef.current?.offsetTop - (navbarHeight + 30),
+      top: eleRef.current?.offsetTop - (navbarHeight + 25),
       behavior: "smooth",
     });
   }
@@ -20,7 +20,7 @@ export default function Navbar({ refs }) {
           </NavLink>
         </div>
         <div id="menu" className="w-full flex justify-center items-center">
-          <ul className="w-full flex flex-row justify-around items-center font-semibold text-xl">
+          <ul className="w-full flex flex-row justify-around items-center font-semibold text-xl gap-3">
             <NavLink
               onClick={() => {
                 scrollToSec(home);
@@ -71,13 +71,19 @@ export default function Navbar({ refs }) {
                       Groups
                     </li>
                   </NavLink>
+                  <button
+                    className="w-full mt-4 text-white bg-red-600 px-3 py-1 rounded hover:bg-blue-500 hover:text-black"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Logout
+                  </button>
+                  <button
+                    className="w-full mt-4 text-white bg-red-600 px-3 py-1 rounded hover:bg-blue-500 hover:text-black"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Close
+                  </button>
                 </ul>
-                <button
-                  className="mt-4 text-white bg-red-600 px-3 py-1 rounded hover:bg-blue-500 hover:text-black"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Logout
-                </button>
               </div>
             )}
           </div>
