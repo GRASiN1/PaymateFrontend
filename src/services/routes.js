@@ -6,6 +6,7 @@ import GroupDetail from "../components/groupCards/groupDetail";
 import GroupList from "../components/groupCards/groupList";
 import Test from "../pages/test";
 import Hero from "../pages/Hero";
+import Authentication from "../pages/authentication";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
         element: <GroupDetail />,
       },
     ],
+  },
+  {
+    path: "/authenticate",
+    element: <Authentication />,
   },
   {
     path: "/test",
