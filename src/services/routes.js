@@ -4,7 +4,7 @@ import Profile from "../pages/profile";
 import Groups from "../pages/groups";
 import GroupDetail from "../components/groupCards/groupDetail";
 import GroupList from "../components/groupCards/groupList";
-import Test from "../pages/test";
+import Mern from "../pages/Mern";
 import Hero from "../pages/Hero";
 import Authentication from "../pages/authentication";
 
@@ -34,10 +34,6 @@ const router = createBrowserRouter([
   {
     path: "/authenticate",
     element: <Authentication />,
-  },
-  {
-    path: "/test",
-    element: <Test />,
   },
 ]);
 
