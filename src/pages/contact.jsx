@@ -1,83 +1,93 @@
 import React, { useRef, useEffect, useState } from "react";
-// import Navbar from "../components/navbar/navbar";
 
 export default function Contact({ ref }) {
   const handleOpenLocation = () => {
     const googleMapsUrl = "https://www.google.com/maps?q=37.7749,-122.4194";
     window.open(googleMapsUrl, "_blank");
   };
+
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsVisible(entry.isIntersecting); // Set visibility based on intersection
+        setIsVisible(entry.isIntersecting);
       },
-      { threshold: 0.1 } // Trigger when 10% of the section is visible
+      { threshold: 0.1 }
     );
 
     if (sectionRef.current) {
       observer.observe(sectionRef.current);
     }
 
-    return () => observer.disconnect(); // Cleanup on unmount
+    return () => observer.disconnect();
   }, []);
+
   return (
-    // <div
-    //   id="main-container"
-    //   className="w-full lg:h-screen h-max flex flex-col items-center p-5 lg:overflow-hidden"
-    // >
-    //   <Navbar />
     <div
-      className="w-full min-h-192 flex flex-col lg:flex-row justify-center items-center mt-20 border-1 rounded-lg"
+      className="w-full min-h-192 flex flex-col lg:flex-row justify-center items-center mt-20  px-8 py-12"
       ref={ref}
     >
+      {/* Image Section */}
       <div
         ref={sectionRef}
-        className="h-full flex items-center justify-center lg:w-1/3 w-full lg:ml-40
-       flex-col"
+        className="h-full flex items-center justify-center lg:w-1/3 w-full flex-col"
       >
         {isVisible && (
-          <object type="image/svg+xml" data={`/images/contact.svg`}>
+          <object
+            type="image/svg+xml"
+            data="/images/contactUs.svg"
+            className="w-72 h-72 md:w-96 md:h-96"
+          >
             Your browser does not support SVG
           </object>
         )}
       </div>
-      <div
-        className="h-full flex justify-center items-center lg:w-2/3 w-full
-       flex-col"
-      >
+
+      {/* Text Section */}
+      <div className="h-full flex justify-center items-center lg:w-2/3 w-full flex-col text-center">
         <div
           className={`transform transition-all duration-1000 ease-in-out ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
-          <h1 className="font-bold font-san lg:text-9xl md:text-8xl text-7xl text-gray-800">
-            CONTACT
+          <h1 className="font-bold text-5xl md:text-7xl lg:text-8xl text-gray-800 leading-tight">
+            Get In Touch
           </h1>
-          <h1 className="font-bold font-san lg:text-9xl md:text-8xl text-7xl text-gray-800">
-            US
-          </h1>
-          <p className="font-semibold ml-2 text-gray-600">
-            <span className="text-red-500"> Mail us at : </span>
-            gauravrajsingh047@gmail.com
+          <p className="mt-4 text-lg md:text-xl text-gray-600 max-w-2xl">
+            Have any questions or need support? Reach out to us anytime, and
+            we'll be happy to assist you.
           </p>
-          <p className="font-semibold ml-2 text-gray-600">
-            <span className="text-red-500"> Call us at : </span>
-            +91-9198888436
-          </p>
+          <div className="mt-6 space-y-3 text-lg md:text-xl text-gray-700">
+            <p>
+              <span className="text-red-500 font-semibold">Mail us at: </span>
+              <a
+                href="mailto:gauravrajsingh047@gmail.com"
+                className="hover:underline"
+              >
+                gauravrajsingh047@gmail.com
+              </a>
+            </p>
+            <p>
+              <span className="text-red-500 font-semibold">Call us at: </span>
+              <a href="tel:+919198888436" className="hover:underline">
+                +91-9198888436
+              </a>
+            </p>
+            <p>
+              <span className="text-red-500 font-semibold">Visit us: </span>
+              123 Business Street, New Delhi, India
+            </p>
+          </div>
           <button
-            className="p-2 bg-red-500 rounded-md m-2 font-pacifico text-white"
-            onClick={() => {
-              handleOpenLocation();
-            }}
+            className="mt-6 px-6 py-3 bg-red-500 text-white text-lg font-semibold rounded-md shadow-lg hover:bg-red-600 transition"
+            onClick={handleOpenLocation}
           >
-            Locate
+            Locate Us
           </button>
         </div>
       </div>
     </div>
-    // </div>
   );
 }

@@ -4,7 +4,6 @@ import Profile from "../pages/profile";
 import Groups from "../pages/groups";
 import GroupDetail from "../components/groupCards/groupDetail";
 import GroupList from "../components/groupCards/groupList";
-import Mern from "../pages/Mern";
 import Hero from "../pages/Hero";
 import Authentication from "../pages/authentication";
 

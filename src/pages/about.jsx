@@ -21,7 +21,7 @@ export default function About({ parentRef }) {
 
   return (
     <div
-      className="w-full min-h-192 flex flex-col lg:flex-row justify-center items-center mt-16 border rounded-lg px-4 py-6"
+      className="w-full min-h-192 flex flex-col lg:flex-row justify-center items-center mt-16  px-4 py-6"
       ref={parentRef}
     >
       {/* Image Section */}
@@ -31,12 +31,13 @@ export default function About({ parentRef }) {
       >
         {isVisible && (
           <object
-            data="/images/paymate.svg"
+            data="/images/egypt.svg"
             type="image/svg+xml"
             className="w-full h-full"
           >
             Your browser does not support SVG images.
           </object>
+          // <img src="/images/rome.jpg" alt="" />
         )}
       </div>
 
