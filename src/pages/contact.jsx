@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 
 export default function Contact({ ref }) {
   const handleOpenLocation = () => {
-    const googleMapsUrl = "https://www.google.com/maps?q=37.7749,-122.4194";
+    const googleMapsUrl = "https://maps.app.goo.gl/8r2dGoztVDDVeRmX8";
     window.open(googleMapsUrl, "_blank");
   };
 
@@ -77,7 +77,7 @@ export default function Contact({ ref }) {
             </p>
             <p>
               <span className="text-red-500 font-semibold">Visit us: </span>
-              123 Business Street, New Delhi, India
+              Gomti Nagar Ext, Lucknow, Uttar Pradesh, India
             </p>
           </div>
           <button

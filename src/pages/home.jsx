@@ -1,8 +1,25 @@
 import { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function Home() {
+export default function Home({ parentRef, learnBtnRef }) {
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
+  const navigate = useNavigate();
+  const user = true;
+
+  function handleGetStarted() {
+    if (user) navigate("/groups");
+    else navigate("/authenticate");
+  }
+
+  const handleScrollToAbout = () => {
+    if (learnBtnRef?.current) {
+      learnBtnRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -21,10 +38,13 @@ export default function Home() {
 
   return (
     <section
-      ref={sectionRef}
+      ref={parentRef}
       className="w-full min-h-192 flex flex-col lg:flex-row justify-center items-center mt-16  text-gray-900"
     >
-      <div className="lg:w-1/3 w-full h-full flex justify-center items-center">
+      <div
+        className="lg:w-1/3 w-full h-full flex justify-center items-center"
+        ref={sectionRef}
+      >
         {isVisible && (
           <object
             data="/images/world.svg"
@@ -49,10 +69,18 @@ export default function Home() {
             hassle-free trips with friends.
           </p>
           <div className="flex flex-col md:flex-row gap-4 justify-center">
-            <button className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:border-none hover:bg-gray-100 hover:text-black transition">
+            <button
+              className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:border-none hover:bg-gray-100 hover:text-black transition"
+              onClick={() => handleGetStarted()}
+            >
               Get Started
             </button>
-            <button className="bg-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 hover:text-blue-600 transition">
+            <button
+              className="bg-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 hover:text-blue-600 transition"
+              onClick={() => {
+                handleScrollToAbout();
+              }}
+            >
               Learn More
             </button>
           </div>

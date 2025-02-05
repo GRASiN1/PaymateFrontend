@@ -1,24 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Authentication() {
   const navigate = useNavigate();
+  const [login, setLogin] = useState(true);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsAnimating(true);
+    }, 100); // Adding slight delay for smoother transition
+  }, []);
+
   function handleGoToHome() {
     navigate("/");
   }
 
   function handleSwitch() {
-    setLogin(!login);
+    setIsAnimating(false); // Reset animation before switching
+    setTimeout(() => {
+      setLogin(!login);
+      setIsAnimating(true); // Re-enable animation after switching
+    }, 200);
   }
-  const [login, setLogin] = useState(true);
+
   return (
     <div
       className="w-full h-screen flex flex-col m-0 p-0 overflow-auto"
       style={{
         backgroundImage: `url('/images/${login ? "bgLogin" : "bgSignup"}.svg')`,
-        backgroundSize: "cover", // To ensure the image covers the entire div
-        backgroundRepeat: "no-repeat", // To avoid repeating the image
-        backgroundPosition: "center", // To center the image
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
       }}
     >
       {/* Navbar */}
@@ -56,11 +69,14 @@ export default function Authentication() {
         {/* Form Section */}
         <div className="w-full lg:w-1/2 flex flex-col justify-center items-center p-4 h-full font-pacifico">
           <div
-            className={`w-3/5 p-4 transition-all duration-1000 ease-out-in transform ${
-              login ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"
+            className={`w-3/5 p-4 transition-all duration-1000 ease-out transform ${
+              isAnimating
+                ? login
+                  ? "opacity-100 translate-x-0"
+                  : "opacity-0 translate-x-10"
+                : "opacity-0 translate-x-10"
             }`}
           >
-            {/* Login Form */}
             {login && (
               <form className="w-full p-4">
                 <h2 className="text-2xl font-semibold mb-4">Login Now</h2>
@@ -99,12 +115,16 @@ export default function Authentication() {
               </form>
             )}
           </div>
+
           <div
-            className={`w-3/5 p-4 transition-all duration-1000 transform ${
-              !login ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
+            className={`w-3/5 p-4 transition-all duration-1000 ease-out transform ${
+              isAnimating
+                ? !login
+                  ? "opacity-100 translate-x-0"
+                  : "opacity-0 -translate-x-10"
+                : "opacity-0 -translate-x-10"
             }`}
           >
-            {/* Signup Form */}
             {!login && (
               <form className="w-full p-4">
                 <h2 className="text-2xl font-semibold mb-4">Signup Now</h2>
@@ -156,6 +176,7 @@ export default function Authentication() {
               </form>
             )}
           </div>
+
           {/* Switch between forms */}
           {login ? (
             <h4>

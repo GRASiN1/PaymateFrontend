@@ -40,7 +40,7 @@ export default function Hero() {
       className="w-full min-h-screen flex flex-col items-center p-5"
     >
       <Navbar refs={[home, about, contact]} />
-      <Home ref={home} />
+      <Home parentRef={home} learnBtnRef={about} />
       <About parentRef={about} />
       <Contact ref={contact} />
     </div>

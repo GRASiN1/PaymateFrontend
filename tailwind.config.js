@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       fontFamily: {
         pacifico: ["Pacifico", "serif"],
+        kanit: ["Kanit"],
       },
       borderWidth: {
         1: "1px",

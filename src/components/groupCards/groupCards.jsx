@@ -19,7 +19,7 @@ export default function GroupCards(props) {
         {props.tripExpense}
       </p>
       <button
-        className=" pl-2 pr-2 pt-1 pb-1 bg-black hover:bg-blue-400 hover:text-black font-pacifico text-white mt-2 text-center rounded-sm"
+        className=" pl-2 pr-2 pt-1 pb-1 bg-black hover:bg-blue-400 hover:text-black font-pacifico text-white mt-2 text-center rounded-md"
         onClick={handleClick}
       >
         Explore
