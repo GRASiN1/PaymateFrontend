@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function UpdateProfile() {
   const [User, setUserDetails] = useState({
@@ -9,6 +10,7 @@ export default function UpdateProfile() {
     gender: "Male",
     dob: "12-08-2004",
   });
+  const navigate = useNavigate();
 
   const [tempUser, setTempUser] = useState({ ...User });
 
@@ -19,12 +21,15 @@ export default function UpdateProfile() {
     }
   };
 
-  const handleSave = () => {
+  const handleSave = (e) => {
+    e.preventDefault();
     setUserDetails(tempUser);
+    alert("Saved");
   };
 
   const handleCancel = () => {
     setTempUser({ ...User });
+    navigate("/profile/");
   };
 
   return (
@@ -54,7 +59,7 @@ export default function UpdateProfile() {
 
         {/* Form Section */}
         <div className="flex flex-col w-full lg:w-2/3">
-          <form className="flex flex-col gap-4">
+          <form className="flex flex-col gap-4" onSubmit={handleSave}>
             <input
               className="bg-gray-50 shadow-sm p-3 rounded-md w-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
               type="text"
@@ -105,23 +110,21 @@ export default function UpdateProfile() {
                 setTempUser({ ...tempUser, [e.target.name]: e.target.value })
               }
             />
+            <div className="flex flex-row justify-between mt-5">
+              <button
+                className="bg-blue-500 text-white px-5 py-2 rounded-md w-1/2 mr-2 hover:bg-blue-600 transition"
+                type="submit"
+              >
+                Save
+              </button>
+              <button
+                className="bg-red-500 text-white px-5 py-2 rounded-md w-1/2 ml-2 hover:bg-red-600 transition"
+                onClick={handleCancel}
+              >
+                Cancel
+              </button>
+            </div>
           </form>
-
-          {/* Buttons */}
-          <div className="flex flex-row justify-between mt-5">
-            <button
-              className="bg-blue-500 text-white px-5 py-2 rounded-md w-1/2 mr-2 hover:bg-blue-600 transition"
-              onClick={handleSave}
-            >
-              Save
-            </button>
-            <button
-              className="bg-red-500 text-white px-5 py-2 rounded-md w-1/2 ml-2 hover:bg-red-600 transition"
-              onClick={handleCancel}
-            >
-              Cancel
-            </button>
-          </div>
         </div>
       </div>
     </div>
