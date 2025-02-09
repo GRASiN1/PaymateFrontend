@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useUser } from "../../contexts/UserContext";
 
 export default function NavbarWR({ refs }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -8,6 +9,9 @@ export default function NavbarWR({ refs }) {
   function handleNavigation(section) {
     navigate("/", { state: { section } });
   }
+
+  const { user, logoutUser } = useUser();
+
   return (
     <nav className="w-full h-16 flex flex-row justify-around items-center fixed top-0 z-10 font-pacifico">
       <div className="w-4/5 h-14 flex flex-row justify-around items-center fixed top-0 z-10 pt-8 pb-8 border-1 m-1 rounded-full bg-white">
@@ -38,48 +42,63 @@ export default function NavbarWR({ refs }) {
             </li>
           </ul>
         </div>
-        <div id="profile" className="w-full flex justify-center items-center">
-          <div className="relative group">
-            <img
-              src="/images/avatar.png"
-              alt="Profile"
-              className="w-12 h-12 rounded-full cursor-pointer"
-              onMouseEnter={() => setIsOpen(!isOpen)}
-            />
-            {isOpen && (
-              <div
-                className="absolute right-0 mt-2 bg-white text-black p-4 rounded-lg shadow-lg border-1"
-                onMouseLeave={() => setIsOpen(!isOpen)}
-              >
-                <ul className="flex flex-col items-center justify-center">
-                  <NavLink to="/profile">
-                    <li className="cursor-pointer hover:text-blue-500">
-                      Profile
-                    </li>
-                  </NavLink>
+        {user ? (
+          <div id="profile" className="w-full flex justify-center items-center">
+            <div className="relative group">
+              <NavLink to="/">
+                <img
+                  src={user.image}
+                  alt="Profile"
+                  className="w-12 h-12 rounded-full cursor-pointer"
+                  onMouseEnter={() => setIsOpen(!isOpen)}
+                />
+              </NavLink>
+              {isOpen && (
+                <div
+                  className="absolute right-0 mt-2 bg-white text-black p-4 rounded-lg shadow-lg border-1"
+                  onMouseLeave={() => setIsOpen(!isOpen)}
+                >
+                  <ul className="flex flex-col items-center justify-center">
+                    <NavLink to="/profile">
+                      <li className="cursor-pointer hover:text-blue-500">
+                        Profile
+                      </li>
+                    </NavLink>
 
-                  <NavLink to="/groups">
-                    <li className="cursor-pointer hover:text-blue-500">
-                      Groups
-                    </li>
-                  </NavLink>
-                  <button
-                    className="w-full mt-4 text-white bg-red-600 px-3 py-1 rounded hover:bg-blue-500 hover:text-black"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Logout
-                  </button>
-                  <button
-                    className="w-full mt-4 text-white bg-red-600 px-3 py-1 rounded hover:bg-blue-500 hover:text-black"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Close
-                  </button>
-                </ul>
-              </div>
-            )}
+                    <NavLink to="/groups">
+                      <li className="cursor-pointer hover:text-blue-500">
+                        Groups
+                      </li>
+                    </NavLink>
+                    <button
+                      className="w-full mt-4 text-white bg-red-600 px-3 py-1 rounded hover:bg-blue-500 hover:text-black"
+                      onClick={logoutUser}
+                    >
+                      Logout
+                    </button>
+                    <button
+                      className="w-full mt-4 text-white bg-red-600 px-3 py-1 rounded hover:bg-blue-500 hover:text-black"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      Close
+                    </button>
+                  </ul>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        ) : (
+          <div id="profile" className="w-full flex justify-center items-center">
+            <NavLink to="/authenticate">
+              <img
+                src="/images/avatar.png"
+                alt="Profile"
+                className="w-12 h-12 rounded-full cursor-pointer"
+                onMouseEnter={() => setIsOpen(!isOpen)}
+              />
+            </NavLink>
+          </div>
+        )}
       </div>
     </nav>
   );

@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../contexts/UserContext";
 
 export default function Authentication() {
+  const { user, loginUser, signupUser } = useUser();
   const navigate = useNavigate();
   const [login, setLogin] = useState(true);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
 
   useEffect(() => {
     setTimeout(() => {
       setIsAnimating(true);
-    }, 100); // Adding slight delay for smoother transition
+    }, 100);
   }, []);
 
   function handleGoToHome() {
@@ -23,6 +30,25 @@ export default function Authentication() {
       setIsAnimating(true); // Re-enable animation after switching
     }, 200);
   }
+
+  function handleOnChange(e) {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  }
+
+  async function handleLogin(e) {
+    e.preventDefault();
+    await loginUser(formData.email, formData.password);
+  }
+  async function handleSignup(e) {
+    e.preventDefault();
+    await signupUser(formData.name, formData.email, formData.password);
+  }
+  useEffect(() => {
+    if (user) navigate("/");
+  }, [user, navigate]);
 
   return (
     <div
@@ -78,7 +104,7 @@ export default function Authentication() {
             }`}
           >
             {login && (
-              <form className="w-full p-4">
+              <form className="w-full p-4" onSubmit={handleLogin}>
                 <h2 className="text-2xl font-semibold mb-4">Login Now</h2>
                 <div className="mb-4">
                   <label
@@ -91,6 +117,8 @@ export default function Authentication() {
                     type="email"
                     id="email"
                     className="w-full bg-red-100 shadow-lg border-gray-300 p-2 rounded-md font-serif outline-none"
+                    value={formData.email}
+                    onChange={handleOnChange}
                   />
                 </div>
                 <div className="mb-4">
@@ -104,6 +132,8 @@ export default function Authentication() {
                     type="password"
                     id="password"
                     className="w-full bg-red-100 shadow-lg border-gray-300 p-2 rounded-md font-serif outline-none"
+                    value={formData.password}
+                    onChange={handleOnChange}
                   />
                 </div>
                 <button
@@ -126,7 +156,7 @@ export default function Authentication() {
             }`}
           >
             {!login && (
-              <form className="w-full p-4">
+              <form className="w-full p-4" onSubmit={handleSignup}>
                 <h2 className="text-2xl font-semibold mb-4">Signup Now</h2>
                 <div className="mb-4">
                   <label
@@ -139,6 +169,8 @@ export default function Authentication() {
                     type="text"
                     id="name"
                     className="w-full bg-blue-100 shadow-lg border-gray-300 p-2 rounded-md font-serif outline-none"
+                    value={formData.name}
+                    onChange={handleOnChange}
                   />
                 </div>
                 <div className="mb-4">
@@ -152,6 +184,8 @@ export default function Authentication() {
                     type="email"
                     id="email"
                     className="w-full bg-blue-100 shadow-lg border-gray-300 p-2 rounded-md font-serif outline-none"
+                    value={formData.email}
+                    onChange={handleOnChange}
                   />
                 </div>
                 <div className="mb-4">
@@ -165,6 +199,8 @@ export default function Authentication() {
                     type="password"
                     id="password"
                     className="w-full bg-blue-100 shadow-lg border-gray-300 p-2 rounded-md font-serif outline-none"
+                    value={formData.password}
+                    onChange={handleOnChange}
                   />
                 </div>
                 <button
