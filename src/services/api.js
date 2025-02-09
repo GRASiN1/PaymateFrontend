@@ -5,6 +5,7 @@ const END_POINTS = {
   GET_USER: "/users/user",
   LOGIN: "/users/login",
   SIGNUP: "/users/signup",
+  UPDATE: "/users/updateUser",
 };
 
 const api = axios.create({
