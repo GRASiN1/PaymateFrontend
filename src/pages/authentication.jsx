@@ -12,17 +12,14 @@ export default function Authentication() {
     email: "",
     password: "",
   });
-
   useEffect(() => {
     setTimeout(() => {
       setIsAnimating(true);
     }, 100);
   }, []);
-
   function handleGoToHome() {
     navigate("/");
   }
-
   function handleSwitch() {
     setIsAnimating(false); // Reset animation before switching
     setTimeout(() => {
@@ -30,14 +27,12 @@ export default function Authentication() {
       setIsAnimating(true); // Re-enable animation after switching
     }, 200);
   }
-
   function handleOnChange(e) {
     setFormData({
       ...formData,
       [e.target.id]: e.target.value,
     });
   }
-
   async function handleLogin(e) {
     e.preventDefault();
     await loginUser(formData.email, formData.password);
