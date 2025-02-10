@@ -36,7 +36,6 @@ export const UserProvider = ({ children }) => {
 
     fetchUser();
   }, []);
-
   async function loginUser(email, password) {
     try {
       const response = await api.post(END_POINTS.LOGIN, { email, password });
@@ -53,7 +52,6 @@ export const UserProvider = ({ children }) => {
       window.alert("Login failed: " + error.message);
     }
   }
-
   async function signupUser(name, email, password) {
     try {
       const response = await api.post(END_POINTS.SIGNUP, {
@@ -74,13 +72,11 @@ export const UserProvider = ({ children }) => {
       window.alert("Signup failed: " + error.message);
     }
   }
-
   function logoutUser() {
     localStorage.removeItem("authToken");
     localStorage.removeItem("user");
     setUser(null);
   }
-
   async function updateUser(name, email, number, dob, gender, image) {
     const token = localStorage.getItem("authToken");
     if (!token) {
@@ -106,7 +102,6 @@ export const UserProvider = ({ children }) => {
       window.alert("Update failed: " + error.message);
     }
   }
-
   async function updatePassword(enteredOldPassword, enteredNewPassword) {
     const token = localStorage.getItem("authToken");
     if (!token) {
@@ -135,6 +130,27 @@ export const UserProvider = ({ children }) => {
       window.alert("Update failed: " + error.message);
     }
   }
+  async function uploadImage(file) {
+    const formData = new FormData();
+    formData.append("image", file);
+    try {
+      const token = localStorage.getItem("authToken");
+      const response = await api.post(END_POINTS.UPLOAD_IMAGE, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      if (response.data.success) {
+        return response.data.imageUrl; // ✅ Return uploaded image URL
+      } else {
+        throw new Error("Image upload failed");
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      return null;
+    }
+  }
 
   return (
     <UserContext.Provider
@@ -145,6 +161,7 @@ export const UserProvider = ({ children }) => {
         logoutUser,
         updateUser,
         updatePassword,
+        uploadImage,
       }}
     >
       {children}

@@ -7,6 +7,7 @@ const END_POINTS = {
   SIGNUP: "/users/signup",
   UPDATE: "/users/updateUser",
   RESET_PASSWORD: "/users/resetPassword",
+  UPLOAD_IMAGE: "/uploads/upload",
 };
 
 const api = axios.create({

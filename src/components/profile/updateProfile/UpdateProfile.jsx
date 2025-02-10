@@ -3,21 +3,26 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "../../../contexts/UserContext";
 
 export default function UpdateProfile() {
-  const { user, updateUser } = useUser();
+  const { user, updateUser, uploadImage } = useUser();
   const navigate = useNavigate();
 
   const [tempUser, setTempUser] = useState({ ...user });
 
-  const handleImageChange = (event) => {
+  const handleImageChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
-      setTempUser({ ...tempUser, image: URL.createObjectURL(file) });
+      const uploadedImageUrl = await uploadImage(file); // ✅ Upload image
+      if (uploadedImageUrl) {
+        setTempUser({ ...tempUser, image: uploadedImageUrl }); // ✅ Update with uploaded URL
+      } else {
+        alert("Image upload failed. Try again.");
+      }
     }
   };
 
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
-    updateUser(
+    await updateUser(
       tempUser.name,
       tempUser.email,
       tempUser.number,
@@ -37,7 +42,7 @@ export default function UpdateProfile() {
   return (
     <div className="w-full lg:h-full h-max bg-gray-100 flex justify-center items-center p-5">
       <div className="flex flex-col lg:flex-row justify-center items-center w-full max-w-4xl bg-white rounded-lg shadow-md p-6 gap-6">
-        {/* Image Section */}
+        {/* Form Section */}
         <div className="flex flex-col items-center w-full lg:w-1/3">
           <img
             src={tempUser.image}
@@ -58,10 +63,12 @@ export default function UpdateProfile() {
             <span className="font-kanit">Edit</span> 🖊️
           </button>
         </div>
-
-        {/* Form Section */}
         <div className="flex flex-col w-full lg:w-2/3">
-          <form className="flex flex-col gap-4" onSubmit={handleSave}>
+          <form
+            className="flex flex-col gap-4"
+            onSubmit={handleSave}
+            encType="multipart/form-data"
+          >
             <input
               className="bg-gray-50 shadow-sm p-3 rounded-md w-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
               type="text"
