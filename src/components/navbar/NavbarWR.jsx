@@ -49,7 +49,7 @@ export default function NavbarWR({ refs }) {
         {user ? (
           <div id="profile" className="w-full flex justify-center items-center">
             <div className="relative group">
-              <NavLink to="/">
+              <NavLink to="/profile">
                 <img
                   src={user.image}
                   alt="Profile"

@@ -1,30 +1,31 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../../../contexts/UserContext";
 
 export default function ResetPassword() {
   const navigate = useNavigate();
 
-  const [password, setPassword] = useState("wgagwga"); // Old password stored
+  const { updatePassword } = useUser();
+
   const [oldPasswordInput, setOldPasswordInput] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     e.preventDefault(); // Prevents page reload
-
-    if (oldPasswordInput !== password) {
-      alert("❌ Old password is incorrect!");
-      return;
-    }
 
     if (newPassword !== confirmPassword) {
       alert("❌ New passwords do not match!");
       return;
     }
-
-    setPassword(newPassword);
-    alert("✅ Password updated successfully!");
-    navigate("/profile/");
+    console.log(oldPasswordInput, newPassword);
+    try {
+      await updatePassword(oldPasswordInput, newPassword);
+      alert("✅ Password updated successfully!");
+      navigate("/profile/");
+    } catch (error) {
+      alert("❌ " + error.message);
+    }
   };
 
   const handleCancel = () => {

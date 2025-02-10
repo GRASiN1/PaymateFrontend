@@ -113,13 +113,18 @@ export const UserProvider = ({ children }) => {
       return;
     }
     try {
-      const response = await api.put(END_POINTS.RESET_PASSWORD, {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const response = await api.put(
+        END_POINTS.RESET_PASSWORD,
+        {
           oldpassword: enteredOldPassword,
           newpassword: enteredNewPassword,
         },
-      });
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.data.success) {
         return;
       } else {
