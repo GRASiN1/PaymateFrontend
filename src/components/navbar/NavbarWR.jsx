@@ -11,7 +11,11 @@ export default function NavbarWR({ refs }) {
   }
 
   const { user, logoutUser } = useUser();
-
+  function handleLogout() {
+    navigate("/");
+    setTimeout(() => logoutUser(), 1);
+    setIsOpen(false);
+  }
   return (
     <nav className="w-full h-16 flex flex-row justify-around items-center fixed top-0 z-10 font-pacifico">
       <div className="w-4/5 h-14 flex flex-row justify-around items-center fixed top-0 z-10 pt-8 pb-8 border-1 m-1 rounded-full bg-white">
@@ -72,7 +76,7 @@ export default function NavbarWR({ refs }) {
                     </NavLink>
                     <button
                       className="w-full mt-4 text-white bg-red-600 px-3 py-1 rounded hover:bg-blue-500 hover:text-black"
-                      onClick={logoutUser}
+                      onClick={handleLogout}
                     >
                       Logout
                     </button>
