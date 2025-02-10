@@ -19,7 +19,6 @@ export default function Profile() {
             <Link to={"/profile/"}>Profile</Link>
             <Link to={"/profile/updateProfile"}>Update Profile</Link>
             <Link to={"/profile/resetPassword"}>Change Password</Link>
-            <Link to={"/profile/addresses"}>Addresses</Link>
             <Link to={"/profile/theme"}>Theme</Link>
             <Link to={"/profile/policies"}>Policies</Link>
           </div>
