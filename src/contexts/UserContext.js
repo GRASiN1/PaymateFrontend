@@ -88,7 +88,7 @@ export const UserProvider = ({ children }) => {
       return;
     }
     try {
-      const response = await api.post(
+      const response = await api.put(
         END_POINTS.UPDATE,
         { name, email, number, dob, gender, image },
         {
@@ -107,9 +107,40 @@ export const UserProvider = ({ children }) => {
     }
   }
 
+  async function updatePassword(enteredOldPassword, enteredNewPassword) {
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+      return;
+    }
+    try {
+      const response = await api.put(END_POINTS.RESET_PASSWORD, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          oldpassword: enteredOldPassword,
+          newpassword: enteredNewPassword,
+        },
+      });
+      if (response.data.success) {
+        return;
+      } else {
+        throw new Error(response.data.error);
+      }
+    } catch (error) {
+      console.error(error);
+      window.alert("Update failed: " + error.message);
+    }
+  }
+
   return (
     <UserContext.Provider
-      value={{ user, loginUser, signupUser, logoutUser, updateUser }}
+      value={{
+        user,
+        loginUser,
+        signupUser,
+        logoutUser,
+        updateUser,
+        updatePassword,
+      }}
     >
       {children}
     </UserContext.Provider>

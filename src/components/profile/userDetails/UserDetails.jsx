@@ -1,41 +1,37 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useUser } from "../../../contexts/UserContext";
 
 export default function UserDetails() {
   const { user } = useUser();
-  useEffect(() => {}, [user]);
 
   return (
-    <div className="w-full h-full bg-gray-100 p-20">
-      <div className="flex lg:flex-row flex-col justify-around items-center w-full h-full bg-white rounded-lg shadow-md">
-        <div className="lg:w-1/2 w-full lg:h-full h-1/4 flex flex-col justify-center items-center my-2 ">
+    <div className="w-full min-h-full bg-gray-100 p-6 flex justify-center  items-center">
+      <div className="flex flex-col justify-center items-center md:flex-row bg-white rounded-lg shadow-lg p-6 w-full h-full max-w-4xl">
+        {/* User Image */}
+        <div className="flex justify-center items-center md:justify-start w-full md:w-1/3">
           <img
             src={user.image}
-            alt="userProfile"
-            width={220}
-            className="rounded-full lg:h-2/3 h-full"
+            alt="User Profile"
+            className="rounded-full w-32 h-32 md:w-40 md:h-40 object-cover"
           />
         </div>
-        <div className="lg:w-1/2 w-full lg:h-full h-2/3 flex flex-col lg:justify-center justify-start items-start mt-4 px-4 ">
-          <p>
-            <span className="font-kanit text-lg">Name : </span>
-            {user.name}
+
+        {/* User Details */}
+        <div className="flex flex-col justify-center mt-4 md:mt-0 md:ml-6 w-full md:w-2/3 text-gray-800">
+          <p className="text-lg">
+            <span className="font-semibold">Name:</span> {user.name}
           </p>
-          <p>
-            <span className="font-kanit text-lg">Email : </span>
-            {user.email}
+          <p className="text-lg">
+            <span className="font-semibold">Email:</span> {user.email}
           </p>
-          <p>
-            <span className="font-kanit text-lg">Number : </span>+91-
-            {user.number}
+          <p className="text-lg">
+            <span className="font-semibold">Number:</span> +91-{user.number}
           </p>
-          <p>
-            <span className="font-kanit text-lg">Gender : </span>
-            {user.gender}
+          <p className="text-lg">
+            <span className="font-semibold">Gender:</span> {user.gender}
           </p>
-          <p>
-            <span className="font-kanit text-lg">Date of Birth : </span>
-            {user.dob}
+          <p className="text-lg">
+            <span className="font-semibold">Date of Birth:</span> {user.dob}
           </p>
         </div>
       </div>
