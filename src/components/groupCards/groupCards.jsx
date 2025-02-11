@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 export default function GroupCards(props) {
   const navigate = useNavigate();
   function handleClick() {
-    navigate(`/groups/${props.id}`, { state: props });
+    navigate(`/groups/${props.id}`, { state: props.groupDetails });
   }
   return (
     <div className="border rounded-lg p-5 bg-gray-100 shadow-md w-80 text-wrap h-52 flex flex-col items-start justify-between">
@@ -12,8 +12,13 @@ export default function GroupCards(props) {
       <p>{props.groupDescription}</p>
       <p>
         <span>Participants: </span>
-        {props.groupMembers.join(", ")}
+        {Array.isArray(props.groupMembers)
+          ? props.groupMembers
+              .map((member) => member?.name || "Unknown")
+              .join(", ")
+          : "No members"}
       </p>
+
       <p>
         <span>Expense: </span>
         {props.tripExpense}

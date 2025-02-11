@@ -11,6 +11,7 @@ import UserDetails from "../components/profile/userDetails/UserDetails";
 import UpdateProfile from "../components/profile/updateProfile/UpdateProfile";
 import ResetPassword from "../components/profile/resetPassword/ResetPassword";
 import Theme from "../components/profile/theme/Theme";
+import JoinGroup from "../components/groupCards/JoinGroup";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: "/groups/:id",
         element: <GroupDetail />,
+      },
+      {
+        path: "/groups/join/:groupLink",
+        element: <JoinGroup />,
       },
     ],
   },

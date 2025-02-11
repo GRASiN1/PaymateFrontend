@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import {
   BarChart,
   Bar,
@@ -7,16 +8,17 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { useGroups } from "../../contexts/GroupContext";
 
 export default function GroupDetail() {
-  const users = [
-    { id: 1, name: "Alice" },
-    { id: 2, name: "Bob" },
-    { id: 3, name: "Charlie" },
-    { id: 4, name: "David" },
-    { id: 5, name: "Eve" },
-  ];
+  const location = useLocation();
+  const groupDetails = location.state;
+  const users = groupDetails.groupMembers.map((member, index) => ({
+    id: index + 1,
+    name: typeof member === "string" ? member : member.name, // Ensure member is handled properly
+  }));
 
+  const { closeGroup } = useGroups();
   const [allUsers, setAllUsers] = useState(users);
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [title, setTitle] = useState("");
@@ -24,19 +26,35 @@ export default function GroupDetail() {
   const [payer, setPayer] = useState(null);
   const [expenses, setExpenses] = useState([]);
   const [expandedExpense, setExpandedExpense] = useState(null);
-
+  async function handleEndTrip() {
+    await closeGroup(groupDetails._id);
+  }
+  function copyToClipboard(text) {
+    navigator.clipboard
+      .writeText(text)
+      .then(() => alert("Link Copied"))
+      .catch((err) => console.error("Failed to copy:", err));
+  }
   const handleSelectUser = (user) => {
+    if (!groupDetails.isOpen) return;
     setAllUsers(allUsers.filter((u) => u !== user));
     setSelectedUsers([...selectedUsers, user]);
   };
 
   const handleDeselectUser = (user) => {
+    if (!groupDetails.isOpen) return;
     setSelectedUsers(selectedUsers.filter((u) => u !== user));
     setAllUsers([...allUsers, user]);
   };
-
   const handleLogExpense = () => {
-    if (!title || !amount || selectedUsers.length === 0 || !payer) return;
+    if (
+      !groupDetails.isOpen ||
+      !title ||
+      !amount ||
+      selectedUsers.length === 0 ||
+      !payer
+    )
+      return;
 
     const newExpense = {
       id: expenses.length + 1,
@@ -59,6 +77,7 @@ export default function GroupDetail() {
   };
 
   const totalExpenses = expenses.reduce((sum, exp) => sum + exp.amount, 0);
+
   const expenseShare = users.map((user) => ({
     name: user.name,
     amount: expenses
@@ -75,14 +94,26 @@ export default function GroupDetail() {
 
   return (
     <div className="w-full min-h-192 flex justify-center items-center flex-col lg:flex-row gap-4 p-4 border rounded-lg shadow-md">
-      {/* Left Section: Expense Form */}
       <div className="lg:w-1/2 w-full h-full flex flex-col gap-4 p-4 border-r">
+        <div
+          className="p-2 border rounded cursor-pointer"
+          hidden={!groupDetails.isOpen}
+          onClick={() => {
+            copyToClipboard(
+              `http://localhost:3000/groups/join/${groupDetails.groupLink}`
+            );
+          }}
+        >
+          <span className="text-lg font-bold">Invitation Link : </span>
+          http://localhost:3000/groups/join/{groupDetails.groupLink}
+        </div>
         <input
           type="text"
           placeholder="Expense Title"
           className="p-2 border rounded"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          disabled={!groupDetails.isOpen}
         />
         <input
           type="number"
@@ -90,28 +121,36 @@ export default function GroupDetail() {
           className="p-2 border rounded"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
+          disabled={!groupDetails.isOpen}
         />
 
         {/* User Selection */}
         <div className="flex flex-col lg:flex-row gap-4">
+          {/* All Users List */}
           <div className="flex-1 border p-2 h-40 overflow-auto scrollbar-hide">
             <h3 className="text-sm font-bold">All Users</h3>
             {allUsers.map((user) => (
               <div
                 key={user.id}
-                className="p-2 border my-1 cursor-pointer hover:bg-gray-200"
+                className={`p-2 border my-1 cursor-pointer hover:bg-gray-200 ${
+                  !groupDetails.isOpen ? "pointer-events-none opacity-50" : ""
+                }`}
                 onClick={() => handleSelectUser(user)}
               >
                 {user.name}
               </div>
             ))}
           </div>
+
+          {/* Selected Users List */}
           <div className="flex-1 border p-2 h-40 overflow-auto scrollbar-hide">
             <h3 className="text-sm font-bold">Selected Users</h3>
             {selectedUsers.map((user) => (
               <div
                 key={user.id}
-                className="p-2 border my-1 cursor-pointer hover:bg-gray-200"
+                className={`p-2 border my-1 cursor-pointer hover:bg-gray-200 ${
+                  !groupDetails.isOpen ? "pointer-events-none opacity-50" : ""
+                }`}
                 onClick={() => handleDeselectUser(user)}
               >
                 {user.name}
@@ -125,6 +164,7 @@ export default function GroupDetail() {
           className="p-2 border rounded"
           value={payer || ""}
           onChange={(e) => setPayer(e.target.value)}
+          disabled={!groupDetails.isOpen}
         >
           <option value="" disabled>
             Select Payer
@@ -138,17 +178,22 @@ export default function GroupDetail() {
 
         {/* Action Buttons */}
         <button
-          className="bg-blue-500 text-white p-2 rounded mt-2 hover:bg-blue-600"
+          className="bg-blue-500 text-white p-2 rounded mt-2 hover:bg-blue-600 disabled:bg-gray-400"
           onClick={handleLogExpense}
+          disabled={!groupDetails.isOpen}
         >
           Save Expense
         </button>
-        <button className="bg-red-500 text-white p-2 rounded mt-2 hover:bg-red-600">
+        <button
+          className="bg-red-500 text-white p-2 rounded mt-2 hover:bg-red-600 disabled:bg-gray-400"
+          onClick={handleEndTrip}
+          disabled={!groupDetails.isOpen}
+        >
           End Trip
         </button>
       </div>
 
-      {/* Right Section: Expenses & Graph */}
+      {/* Expenses Section */}
       <div className="lg:w-1/2 w-full h-full flex flex-col gap-4">
         {/* Expenses Accordion */}
         <div className="w-full h-56 overflow-auto scrollbar-hide border rounded-lg p-4">

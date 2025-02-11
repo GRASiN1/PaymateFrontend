@@ -1,11 +1,12 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../contexts/UserContext";
 
 export default function Home({ parentRef, learnBtnRef }) {
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const navigate = useNavigate();
-  const user = true;
+  const { user } = useUser();
 
   function handleGetStarted() {
     if (user) navigate("/groups");

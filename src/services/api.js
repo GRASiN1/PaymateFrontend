@@ -8,6 +8,10 @@ const END_POINTS = {
   UPDATE: "/users/updateUser",
   RESET_PASSWORD: "/users/resetPassword",
   UPLOAD_IMAGE: "/uploads/upload",
+  CREATE_GROUP: "/groups/createGroup",
+  JOIN_GROUP: "/groups/joinGroup/",
+  GET_GROUPS: "/groups/getGroups",
+  CLOSE_GROUP: "/groups/closeGroup/",
 };
 
 const api = axios.create({
@@ -15,6 +19,7 @@ const api = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });
 
 export { api, END_POINTS };

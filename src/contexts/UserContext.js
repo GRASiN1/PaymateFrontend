@@ -14,12 +14,10 @@ export const UserProvider = ({ children }) => {
     const fetchUser = async () => {
       const token = localStorage.getItem("authToken");
       if (!token) return;
-
       try {
         const response = await api.get(END_POINTS.GET_USER, {
           headers: { Authorization: `Bearer ${token}` },
         });
-
         if (response.data.success) {
           setUser(response.data.data);
           localStorage.setItem("user", JSON.stringify(response.data.data)); // ✅ Ensure latest data
@@ -33,7 +31,6 @@ export const UserProvider = ({ children }) => {
         setUser(null); // ✅ Reset on error
       }
     };
-
     fetchUser();
   }, []);
   async function loginUser(email, password) {
@@ -73,8 +70,7 @@ export const UserProvider = ({ children }) => {
     }
   }
   function logoutUser() {
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("user");
+    localStorage.clear();
     setUser(null);
   }
   async function updateUser(name, email, number, dob, gender, image) {
