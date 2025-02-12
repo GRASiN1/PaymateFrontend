@@ -13,7 +13,7 @@ export const GroupProvider = ({ children }) => {
 
   useEffect(() => {
     if (user) fetchGroups();
-  });
+  }, [groups, user]);
 
   async function fetchGroups() {
     const token = localStorage.getItem("authToken");
@@ -32,6 +32,10 @@ export const GroupProvider = ({ children }) => {
     } catch (error) {
       console.log("Error fetching groups:", error);
     }
+  }
+  function fetchGroupDetails(groupId) {
+    const group = groups.find((group) => group._id === groupId);
+    return group;
   }
   async function createGroup(groupForm) {
     const token = localStorage.getItem("authToken");
@@ -117,6 +121,7 @@ export const GroupProvider = ({ children }) => {
         joinGroup,
         fetchGroups,
         closeGroup,
+        fetchGroupDetails,
       }}
     >
       {children}

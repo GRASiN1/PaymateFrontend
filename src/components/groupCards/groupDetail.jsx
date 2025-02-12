@@ -11,14 +11,14 @@ import {
 import { useGroups } from "../../contexts/GroupContext";
 
 export default function GroupDetail() {
+  const { closeGroup, fetchGroupDetails } = useGroups();
   const location = useLocation();
-  const groupDetails = location.state;
+  const groupId = location.state;
+  const groupDetails = fetchGroupDetails(groupId);
   const users = groupDetails.groupMembers.map((member, index) => ({
     id: index + 1,
-    name: typeof member === "string" ? member : member.name, // Ensure member is handled properly
+    name: typeof member === "string" ? member : member.name,
   }));
-
-  const { closeGroup } = useGroups();
   const [allUsers, setAllUsers] = useState(users);
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [title, setTitle] = useState("");
