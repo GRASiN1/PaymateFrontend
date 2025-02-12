@@ -12,6 +12,8 @@ const END_POINTS = {
   JOIN_GROUP: "/groups/joinGroup/",
   GET_GROUPS: "/groups/getGroups",
   CLOSE_GROUP: "/groups/closeGroup/",
+  GET_EXPENSES: "/expenses/getExpenses",
+  CREATE_EXPENSE: "/expenses/createExpense",
 };
 
 const api = axios.create({
