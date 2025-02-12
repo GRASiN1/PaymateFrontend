@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import {
   BarChart,
@@ -23,7 +23,10 @@ export default function GroupDetail() {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [payer, setPayer] = useState(null);
-  const [expenses, setExpenses] = useState(allExpenses);
+  const [expenses, setExpenses] = useState([]);
+  useEffect(() => {
+    setExpenses(allExpenses.filter((exp) => exp.expenseOf._id === groupId));
+  }, [allExpenses, groupId]);
   const [expandedExpense, setExpandedExpense] = useState(null);
   async function handleEndTrip() {
     await closeGroup(groupDetails._id);

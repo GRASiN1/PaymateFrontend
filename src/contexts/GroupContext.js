@@ -13,7 +13,7 @@ export const GroupProvider = ({ children }) => {
 
   useEffect(() => {
     if (user) fetchGroups();
-  }, [groups, user]);
+  }, [user]);
 
   async function fetchGroups() {
     const token = localStorage.getItem("authToken");

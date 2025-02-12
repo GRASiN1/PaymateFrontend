@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import GroupCards from "./groupCards";
 import { useGroups } from "../../contexts/GroupContext";
 
@@ -9,7 +9,6 @@ export default function GroupList() {
     groupDescription: "",
   });
   const { groups, createGroup } = useGroups();
-  useEffect(() => {}, [groups]);
   function handleOnChange(e) {
     setGroupForm({ ...groupFrom, [e.target.name]: e.target.value });
   }

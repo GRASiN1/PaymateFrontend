@@ -5,7 +5,7 @@ import { useGroups } from "./GroupContext";
 const ExpenseContext = createContext();
 
 export const ExpenseProvider = ({ children }) => {
-  const { groups } = useGroups();
+  const { groups, fetchGroups } = useGroups();
   const [allExpenses, setAllExpenses] = useState(() => {
     return JSON.parse(localStorage.getItem("expenses")) || [];
   });
@@ -13,7 +13,7 @@ export const ExpenseProvider = ({ children }) => {
     if (groups.length > 0) {
       getAllExpenses();
     }
-  }, [groups.length]);
+  }, [groups.length, allExpenses]);
   async function getAllExpenses() {
     const token = localStorage.getItem("authToken");
     try {
@@ -53,6 +53,7 @@ export const ExpenseProvider = ({ children }) => {
           localStorage.setItem("expenses", JSON.stringify(updatedAllExpenses));
           return updatedAllExpenses;
         });
+        await fetchGroups();
       } else {
         throw new Error(response.data.error);
       }
