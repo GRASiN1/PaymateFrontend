@@ -1,19 +1,21 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { api, END_POINTS } from "../services/api";
 import { useGroups } from "./GroupContext";
+import { useUser } from "./UserContext";
 
 const ExpenseContext = createContext();
 
 export const ExpenseProvider = ({ children }) => {
   const { groups, fetchGroups } = useGroups();
+  const { user } = useUser();
   const [allExpenses, setAllExpenses] = useState(() => {
     return JSON.parse(localStorage.getItem("expenses")) || [];
   });
   useEffect(() => {
-    if (groups.length > 0) {
+    if (user && groups.length > 0) {
       getAllExpenses();
     }
-  }, [groups.length, allExpenses]);
+  }, [groups.length, allExpenses, user]);
   async function getAllExpenses() {
     const token = localStorage.getItem("authToken");
     try {
