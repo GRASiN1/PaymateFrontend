@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import GroupCards from "./groupCards";
 import { useGroups } from "../../contexts/GroupContext";
-import { useNavigate } from "react-router-dom";
 
 export default function GroupList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -13,10 +12,6 @@ export default function GroupList() {
   useEffect(() => {}, [groups]);
   function handleOnChange(e) {
     setGroupForm({ ...groupFrom, [e.target.name]: e.target.value });
-  }
-  const navigate = useNavigate();
-  function join() {
-    navigate("/groups/join/456");
   }
   const handleCreateGroup = async () => {
     if (!groupFrom.groupTitle.trim()) {
@@ -79,7 +74,6 @@ export default function GroupList() {
           </div>
         )}
       </div>
-      <button onClick={join}>join group</button>
       {(groups || []).map((group) => {
         return (
           <GroupCards
