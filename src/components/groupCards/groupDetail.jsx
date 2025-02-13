@@ -95,12 +95,12 @@ export default function GroupDetail() {
           hidden={!groupDetails.isOpen}
           onClick={() => {
             copyToClipboard(
-              `http://localhost:3000/groups/join/${groupDetails.groupLink}`
+              `https://paymate-ruddy.vercel.app/groups/join/${groupDetails.groupLink}`
             );
           }}
         >
           <span className="text-lg font-bold">Invitation Link : </span>
-          http://localhost:3000/groups/join/{groupDetails.groupLink}
+          https://paymate-ruddy.vercel.app/groups/join/{groupDetails.groupLink}
         </div>
         <input
           type="text"
