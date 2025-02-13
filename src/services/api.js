@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5000/api";
+const BASE_URL = "http://localhost:3000/api";
 const END_POINTS = {
   GET_USER: "/users/user",
   LOGIN: "/users/login",
