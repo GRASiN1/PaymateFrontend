@@ -14,6 +14,9 @@ const END_POINTS = {
   CLOSE_GROUP: "/groups/closeGroup/",
   GET_EXPENSES: "/expenses/getExpenses",
   CREATE_EXPENSE: "/expenses/createExpense",
+  GET_SETTLEMENTS: "/settlements/getSettlements",
+  CREATE_SETTLEMENT: "/settlements/createSettlement",
+  UPDATE_SETTLEMENT_STATUS: "/settlements/updateStatus",
 };
 
 const api = axios.create({
