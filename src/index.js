@@ -7,13 +7,11 @@ import { GroupProvider } from "./contexts/GroupContext";
 import { ExpenseProvider } from "./contexts/ExpenseContext";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <UserProvider>
-      <GroupProvider>
-        <ExpenseProvider>
-          <App />
-        </ExpenseProvider>
-      </GroupProvider>
-    </UserProvider>
-  </React.StrictMode>
+  <UserProvider>
+    <GroupProvider>
+      <ExpenseProvider>
+        <App />
+      </ExpenseProvider>
+    </GroupProvider>
+  </UserProvider>
 );
