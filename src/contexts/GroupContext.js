@@ -105,6 +105,7 @@ export const GroupProvider = ({ children }) => {
           return updatedGroups;
         });
         alert("Group closed successfully!");
+        await fetchGroups();
       } else {
         throw new Error(response.data.error);
       }
