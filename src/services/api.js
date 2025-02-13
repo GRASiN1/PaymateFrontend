@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://paymate-backend.vercel.app/api";
+const BASE_URL = "http://localhost:5000/api";
 const END_POINTS = {
   GET_USER: "/users/user",
   LOGIN: "/users/login",
