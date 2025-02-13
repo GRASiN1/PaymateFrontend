@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/*",
-      "destination": "https://your-backend-url.com/api/:path*"
+      "destination": "https://paymatebackend.onrender.com/api/:path*"
     }
   ],
   "redirects": [
