@@ -27,6 +27,7 @@ export default function GroupDetail() {
   const [amount, setAmount] = useState("");
   const [payer, setPayer] = useState(null);
   const [expenses, setExpenses] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   useEffect(() => {
     setExpenses(allExpenses.filter((exp) => exp.expenseOf._id === groupId));
   }, [allExpenses, groupId]);
@@ -50,27 +51,41 @@ export default function GroupDetail() {
     setSelectedUsers(selectedUsers.filter((u) => u._id !== user._id));
     setAllUsers([...allUsers, user]);
   };
+
   const handleLogExpense = async () => {
     if (
       !groupDetails.isOpen ||
       !title ||
       !amount ||
       selectedUsers.length === 0 ||
-      !payer
+      !payer ||
+      isSubmitting
     )
       return;
+
+    setIsSubmitting(true);
+
     const expense = {
       expenseTitle: title,
       amount: parseFloat(amount),
       paidBy: payer,
       participants: selectedUsers.map((user) => ({ _id: user._id })),
     };
-    await createExpense(expense, groupDetails._id);
-    setTitle("");
-    setAmount("");
-    setSelectedUsers([]);
-    setAllUsers(users);
-    setPayer(null);
+
+    try {
+      await createExpense(expense, groupDetails._id);
+      setTitle("");
+      setAmount("");
+      setSelectedUsers([]);
+      setAllUsers(users);
+      setPayer(null);
+    } catch (error) {
+      console.error("Error creating expense:", error);
+    } finally {
+      setTimeout(() => {
+        setIsSubmitting(false);
+      }, 2000);
+    }
   };
   const toggleAccordion = (id) => {
     setExpandedExpense(expandedExpense === id ? null : id);
@@ -104,7 +119,8 @@ export default function GroupDetail() {
             }}
           >
             <span className="text-lg font-bold">Invitation Link : </span>
-            https://paymate-ruddy.vercel.app/groups/join/{groupDetails.groupLink}
+            https://paymate-ruddy.vercel.app/groups/join/
+            {groupDetails.groupLink}
           </div>
           <input
             type="text"
@@ -179,9 +195,9 @@ export default function GroupDetail() {
           <button
             className="bg-blue-500 text-white p-2 rounded mt-2 hover:bg-blue-600 disabled:bg-gray-400"
             onClick={handleLogExpense}
-            disabled={!groupDetails.isOpen}
+            disabled={!groupDetails.isOpen || isSubmitting}
           >
-            Save Expense
+            {isSubmitting ? "Saving..." : "Save Expense"}
           </button>
           <button
             className="bg-red-500 text-white p-2 rounded mt-2 hover:bg-red-600 disabled:bg-gray-400"
@@ -248,31 +264,37 @@ export default function GroupDetail() {
               className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
               onClick={() => setShowSettlements(!showSettlements)}
             >
-              {showSettlements ? 'Hide' : 'Show'} Settlements
+              {showSettlements ? "Hide" : "Show"} Settlements
             </button>
           </div>
-          </div>
-          {showSettlements && (
-              <div className="space-y-4">
-                {calculateSettlements(groupId, expenses, users).map((settlement, index) => (
-                  <div key={index} className="p-4 bg-white rounded-lg shadow">
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <span className="font-medium text-red-500">{settlement.from.name}</span>
-                        <span className="mx-2">needs to pay</span>
-                        <span className="font-medium text-green-500">{settlement.to.name}</span>
-                      </div>
-                      <div className="font-bold">₹{settlement.amount}</div>
+        </div>
+        {showSettlements && (
+          <div className="space-y-4">
+            {calculateSettlements(groupId, expenses, users).map(
+              (settlement, index) => (
+                <div key={index} className="p-4 bg-white rounded-lg shadow">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <span className="font-medium text-red-500">
+                        {settlement.from.name}
+                      </span>
+                      <span className="mx-2">needs to pay</span>
+                      <span className="font-medium text-green-500">
+                        {settlement.to.name}
+                      </span>
                     </div>
+                    <div className="font-bold">₹{settlement.amount}</div>
                   </div>
-                ))}
-                {calculateSettlements(groupId, expenses, users).length === 0 && (
-                  <div className="text-center text-gray-500">
-                    No settlements needed at this time
-                  </div>
-                )}
+                </div>
+              )
+            )}
+            {calculateSettlements(groupId, expenses, users).length === 0 && (
+              <div className="text-center text-gray-500">
+                No settlements needed at this time
               </div>
             )}
+          </div>
+        )}
       </div>
     </div>
   );
